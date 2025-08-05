@@ -3,7 +3,7 @@
 .idea
 *.iml
 examples
-docs
+doc
 .packages
 .pub
 packages

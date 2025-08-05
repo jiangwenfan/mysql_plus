@@ -1,17 +1,14 @@
-mysql1
+mysql_plus
 ======
 
-[中文文档 / Chinese Documentation](docs/README-ZH.md)
+一个为Dart编程语言开发的MySQL驱动程序。支持Flutter和服务器端应用。
 
-A MySQL driver for the Dart programming language. Works on Flutter and on the server.
+这个库旨在为MySQL提供易于使用的接口。`mysql_plus`最初是从`mysql1`分叉而来
 
-This library aims to provide an easy to use interface to MySQL. `mysql1` originated 
-as a fork of the SQLJocky driver.
+使用方法
+--------
 
-Usage
------
-
-Connect to the database
+连接到数据库
 
 ```dart
 var settings = new ConnectionSettings(
@@ -24,34 +21,34 @@ var settings = new ConnectionSettings(
 var conn = await MySqlConnection.connect(settings);
 ```
 
-Execute a query with parameters:
+执行带参数的查询：
 
 ```dart
 var userId = 1;
 var results = await conn.query('select name, email from users where id = ?', [userId]);
 ```
 
-Use the results:
+使用查询结果：
 
 ```dart
 for (var row in results) {
-  print('Name: ${row[0]}, email: ${row[1]}');
-});
+  print('姓名: ${row[0]}, 邮箱: ${row[1]}');
+};
 ```
 
-Insert some data
+插入数据
 
 ```dart
 var result = await conn.query('insert into users (name, email, age) values (?, ?, ?)', ['Bob', 'bob@bob.com', 25]);
 ```
 
-An insert query's results will be empty, but will have an id if there was an auto-increment column in the table:
+插入查询的结果将为空，但如果表中有自动递增列，则会有一个id：
 
 ```dart
-print("New user's id: ${result.insertId}");
+print("新用户的id: ${result.insertId}");
 ```
 
-Execute a query with multiple sets of parameters:
+使用多组参数执行查询：
 
 ```dart
 var results = await query.queryMulti(
@@ -61,7 +58,7 @@ var results = await query.queryMulti(
     ['Joe', 'joe@joe.com', 37]]);
 ```
 
-Update some data:
+更新数据：
 
 ```dart
 await conn.query(
@@ -72,4 +69,4 @@ await conn.query(
 Flutter Web
 -----------
 
-This package opens a socket to the database. The web platform does not support sockets and so this package does not work on flutter web.
+这个包会打开到数据库的套接字连接。Web平台不支持套接字，因此这个包无法在Flutter Web上工作。
